@@ -1,6 +1,9 @@
+#!/usr/bin/env php
 <?php
 
 require __DIR__ . '/vendor/autoload.php';
+
+require_once('src/ThreeWayMerge.php');
 
 use Relaxed\Merge\ThreeWayMerge\ThreeWayMerge;
 
