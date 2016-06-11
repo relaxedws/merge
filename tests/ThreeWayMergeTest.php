@@ -8,7 +8,11 @@ use Exception;
 
 class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
 {
-    public function testnoconflict()
+    /**
+     * Test function for arrays when no conflict would arise.
+     * @return Merged array.
+     */
+    public function testNoConflict()
     {
         $original = [
             'title' => 'abc',
@@ -34,7 +38,11 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $result);
     }
 
-    public function testconflict()
+    /**
+     * Test function for cases when merge conflict would arise.
+     * @throws Exception
+     */
+    public function testConflict()
     {
         $original = [
             'title' => 'abc',
