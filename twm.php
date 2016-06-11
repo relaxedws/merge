@@ -22,5 +22,11 @@ $remote = [
     'body' => 'lorem ipsum',
 ];
 
-$merge = new ThreeWayMerge();
-$merged = $merge->performMerge($original, $local, $remote);
+try {
+    $merge = new ThreeWayMerge();
+    $merged = $merge->performMerge($original, $local, $remote);
+    print_r($merged);
+}
+catch (Exception $e){
+    print ($e->getMessage());
+}
