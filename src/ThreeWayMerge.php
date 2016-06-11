@@ -7,7 +7,7 @@ use Exception;
 class ThreeWayMerge
 {
     /**
-     * Performs automatic merge or throws exception if no conflict arises.
+     * Performs automatic merge if no conflict arises else throws exception.
      *
      * @param array $ancestor
      * @param array $local
