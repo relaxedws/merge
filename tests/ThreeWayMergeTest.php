@@ -2,9 +2,8 @@
 
 namespace Relaxed\Merge\Test;
 
-require_once('src/ThreeWayMerge.php');
-use Relaxed\Merge\ThreeWayMerge\ThreeWayMerge;
 use Exception;
+use Relaxed\Merge\ThreeWayMerge\ThreeWayMerge;
 
 class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
 {
@@ -64,10 +63,8 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
         try {
             $merge->performMerge($original, $local, $remote);
             $this->fail('Exception was not thrown.');
-        }
-        catch (Exception $e){
-            $this->assertTrue(TRUE);
+        } catch (Exception $e) {
+            $this->assertTrue(true);
         }
     }
 }
-
