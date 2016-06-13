@@ -2,8 +2,6 @@
 
 namespace Relaxed\Merge\Test;
 
-require __DIR__ . '/../vendor/autoload.php';
-
 use Exception;
 use Relaxed\Merge\ThreeWayMerge\ThreeWayMerge;
 
@@ -17,7 +15,7 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
     {
         $original = [
             'title' => 'abc',
-            'body' => "lorem ipsum",
+            'body' => 'lorem ipsum',
         ];
 
         $local = [
@@ -34,7 +32,7 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
         $result = $merge->performMerge($original, $local, $remote);
         $expected = [
             'title' => '123',
-            'body' => "dolor",
+            'body' => 'dolor',
         ];
         $this->assertEquals($expected, $result);
     }
