@@ -25,9 +25,9 @@ class ThreeWayMerge
         foreach ($ancestor as $key => $value) {
             if (is_array($value)) {
                 $merged[$key] = $this->performMerge(
-                $value,
-                $local[$key],
-                $remote[$key]
+                    $value,
+                    $local[$key],
+                    $remote[$key]
                 );
             } else {
                 // If ancestor's value is equal to remote's value,
