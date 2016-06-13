@@ -21,17 +21,16 @@ class ThreeWayMerge
         $merged = $ancestor;
         $conflict = false;
         foreach ($ancestor as $key => $value) {
-            // If ancestor's value is equal to remote's value
-            // Set the merged array's value to local value
+            // If ancestor's value is equal to remote's value,
+            // Set the merged array's value to local value.
 
-            // Else If ancestor's value is equal to local's value
-            //Set the merged array's value to remote value.
+            // Else If ancestor's value is equal to local's value,
+            // Set the merged array's value to remote value.
 
-            // Else If local's value is equal to remote's value
-            //Set the merged array's value to any value
-            //as they both are same.
+            // Else If local's value is equal to remote's value,
+            // Set the merged array's value to any value as they both are same.
 
-            // Else set conflict to TRUE as none of the above is True/
+            // Else set conflict to TRUE as none of the above is True.
             if ($value == $remote[$key]) {
                 $merged[$key] = $local[$key];
             } elseif ($value == $local[$key]) {
