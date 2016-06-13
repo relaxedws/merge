@@ -8,10 +8,10 @@
     "psr-4": {
       "Relaxed\\Merge\\ThreeWayMerge\\": "src/"
     }
-  }
+  },
   "autoload-dev": {
     "psr-4": {
-      "Relaxed\\Merge\\Test\\": "tests/  "
+      "Relaxed\\Merge\\Test\\": "tests/"
     }
   }
 
