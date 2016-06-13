@@ -24,11 +24,12 @@ class ThreeWayMerge
         $conflict = false;
         foreach ($ancestor as $key => $value) {
             if (is_array($value)) {
-                $merged[$key] = $this->performMerge($value,
-                    $local[$key],
-                    $remote[$key]);
+                $merged[$key] = $this->performMerge(
+                $value,
+                $local[$key],
+                $remote[$key]
+                );
             } else {
-
                 // If ancestor's value is equal to remote's value,
                 // Set the merged array's value to local value.
 
