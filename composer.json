@@ -4,9 +4,15 @@
   "require-dev": {
     "phpunit/phpunit": "~4.0"
   },
-   "autoload": {
-     "psr-4": {
-       "Relaxed\\Merge\\ThreeWayMerge\\": "src/"
-     }
-   }
+  "autoload": {
+    "psr-4": {
+      "Relaxed\\Merge\\ThreeWayMerge\\": "src/"
+    }
+  }
+  "autoload-dev": {
+    "psr-4": {
+      "Relaxed\\Merge\\Test\\": "tests/  "
+    }
+  }
+
 }
