@@ -182,7 +182,7 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
     {
         $original = [
             'title' => 'abc',
-            'body' => "lorem ipsum",
+            'body' => 'lorem ipsum',
         ];
 
         $local = [
