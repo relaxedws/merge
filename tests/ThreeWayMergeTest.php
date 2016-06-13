@@ -2,6 +2,8 @@
 
 namespace Relaxed\Merge\Test;
 
+require __DIR__ . '/../vendor/autoload.php';
+
 use Exception;
 use Relaxed\Merge\ThreeWayMerge\ThreeWayMerge;
 
