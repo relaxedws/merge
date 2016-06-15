@@ -30,7 +30,10 @@ class ThreeWayMerge
                     $remote[$key]
                 );
             } else {
-                $merged[$key] = $this->multiLineMerge($ancestor[$key],$local[$key],$remote[$key], $key);
+                $merged[$key] = $this->Merge($ancestor[$key],$local[$key],$remote[$key], $key);
+                if ($merged[$key] == NULL){
+                    unset($merged[$key]);
+                }
             }
         }
         // Throw Exception if there is a conflict.
@@ -51,7 +54,7 @@ class ThreeWayMerge
      * @return mixed
      * @throws Exception
      */
-    protected function multiLineMerge($x, $y, $z, $key)
+    protected function Merge($x, $y, $z, $key)
     {
         if(strpos($x, "\n") !== FALSE) {
             $ancestor = explode("\n", $x);
@@ -69,62 +72,49 @@ class ThreeWayMerge
         if(strpos($z, "\n") !== FALSE) {
             $remote = explode("\n", $z);
         }
-
         else{
             $remote = array($z);
         }
-//        print_r($ancestor);
-//        if(isset($remote) || isset($ancestor) || isset($local)) {
-            $count_ancestor = count($ancestor);
-            $count_remote = count($remote);
-            $count_local = count($local);
-            if($count_ancestor == $count_local){
-                $count = $count_remote;
-            } elseif ($count_ancestor == $count_remote || $count_remote == $count_local){
-                $count = $count_local;
-            }
-            $counter = 0;
-            if($count > $count_ancestor) {
-                foreach ($ancestor as $key => $value) {
-                    $counter = $counter + 1;
-                    if ($ancestor[$key] == $local[$key]) {
-                        $merged[$key] = $remote[$key];
-                    } elseif ($ancestor[$key] == $remote[$key] || $local[$key] == $remote[$key]) {
-                        $merged[$key] = $local[$key];
-                    } else {
-                        throw new Exception("A conflict has occured");
-                    }
-                }
-                for ($i = $count-$count_ancestor; $i < $count; $i++) {
-                    $count == $count_local ? $merged[$i] = $local[$i] : $merged[$i] = $remote[$i];
+        $count_ancestor = count($ancestor);
+        $count_remote = count($remote);
+        $count_local = count($local);
+        if($count_ancestor == $count_local){
+            $count = $count_remote;
+        } elseif ($count_ancestor == $count_remote || $count_remote == $count_local){
+            $count = $count_local;
+        }
+        $counter = 0;
+        if($count > $count_ancestor) {
+            foreach ($ancestor as $key => $value) {
+                $counter = $counter + 1;
+                if ($ancestor[$key] == $local[$key]) {
+                    $merged[$key] = $remote[$key];
+                } elseif ($ancestor[$key] == $remote[$key] || $local[$key] == $remote[$key]) {
+                    $merged[$key] = $local[$key];
+                } else {
+                    throw new Exception("A conflict has occured");
                 }
             }
-            else {
-                foreach ($ancestor as $key => $value) {
-                    $counter = $counter + 1;
-                    if ($ancestor[$key] == $local[$key]) {
-                        $merged[$key] = $remote[$key];
-                    } elseif ($ancestor[$key] == $remote[$key] || $local[$key] == $remote[$key]) {
-                        $merged[$key] = $local[$key];
-                    } else {
-                        throw new Exception("A conflict has occured");
-                    }
-                    if ($counter >= $count) {
-                        break;
-                    }
+            for ($i = $count_ancestor; $i < $count; $i++) {
+                $count == $count_local ? $merged[$i] = $local[$i] : $merged[$i] = $remote[$i];
+            }
+        }
+        else {
+            foreach ($ancestor as $key => $value) {
+                $counter = $counter + 1;
+                if ($ancestor[$key] == $local[$key]) {
+                    $merged[$key] = $remote[$key];
+                } elseif ($ancestor[$key] == $remote[$key] || $local[$key] == $remote[$key]) {
+                    $merged[$key] = $local[$key];
+                } else {
+                    throw new Exception("A conflict has occured");
+                }
+                if ($counter >= $count) {
+                    break;
                 }
             }
-            $merged[$key] = implode(PHP_EOL, $merged);
-//        }
-//        else {
-//            if ($x == $y) {
-//                $merged[$key] = $z;
-//            } elseif ($x == $z || $y == $z) {
-//                $merged[$key] = $y;
-//            } else {
-//                throw new Exception("A conflict has occured");
-//            }
-//        }
-        return $merged[$key];
+        }
+    $merged[$key] = implode(PHP_EOL, $merged);
+    return $merged[$key];
     }
 }
