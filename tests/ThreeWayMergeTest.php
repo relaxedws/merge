@@ -196,7 +196,6 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
         ];
 
         $merge = new ThreeWayMerge();
-        $merge->performMerge($original, $local, $remote);
         try {
             $merge->performMerge($original, $local, $remote);
             $this->fail('Exception was not thrown.');

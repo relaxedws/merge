@@ -30,23 +30,7 @@ class ThreeWayMerge
                     $remote[$key]
                 );
             } else {
-                // If ancestor's value is equal to remote's value,
-                // Set the merged array's value to local value.
-
-                // Else If ancestor's value is equal to local's value,
-                // Set the merged array's value to remote value.
-
-                // Else If local's value is equal to remote's value,
-                // Set the merged array's value to any value as they both are same.
-
-                // Else set conflict to TRUE as none of the above is True.
-                if ($ancestor[$key] == $local[$key]) {
-                    $merged[$key] = $remote[$key];
-                } elseif ($ancestor[$key] == $remote[$key]) {
-                    $merged[$key] = $local[$key];
-                } elseif ($local[$key] == $remote[$key]) {
-                    $merged[$key] = $local[$key];
-                }
+                $merged[$key] = $this->multiLineMerge($ancestor[$key],$local[$key],$remote[$key], $key);
             }
         }
         // Throw Exception if there is a conflict.
@@ -54,5 +38,47 @@ class ThreeWayMerge
             throw new Exception('A merge conflict has occured.');
         }
         return $merged;
+    }
+
+    public function multiLineMerge($x, $y, $z, $key)
+    {
+        $merged = [];
+        if(strpos($x, "\n") !== FALSE) {
+            $ancestor = explode("\n", $x);
+        }
+        if(strpos($y, "\n") !== FALSE) {
+            $local = explode("\n", $y);
+        }
+        if(strpos($z, "\n") !== FALSE) {
+            $remote = explode("\n", $z);
+        }
+        if(isset($remote) || isset($ancestor) || isset($local)) {
+            foreach ($ancestor as $key => $value) {
+                if ($ancestor[$key] == $local[$key]) {
+                    $merged[$key] = $remote[$key];
+                } elseif ($ancestor[$key] == $remote[$key]) {
+                    $merged[$key] = $local[$key];
+                } elseif ($local[$key] == $remote[$key]) {
+                    $merged[$key] = $local[$key];
+                } else {
+                    echo "CONFLICT";
+                }
+            }
+            $merged[$key] = implode(PHP_EOL, $merged);
+        }
+        else{
+            if ($x == $y) {
+                $merged[$key] = $z;
+            } elseif ($x == $z) {
+                $merged[$key] = $y;
+            } elseif ($y == $z) {
+                $merged[$key] = $y;
+            }
+            else {
+                throw new Exception("A conflict has occured");
+            }
+        }
+
+        return $merged[$key];
     }
 }
