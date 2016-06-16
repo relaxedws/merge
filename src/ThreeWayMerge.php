@@ -45,15 +45,24 @@ class ThreeWayMerge
             && $count_ancestor != $count_remote
         ) {
             $merged = $this->linesModified(
-                $ancestor, $local, $remote,
-                $count_ancestor, $count_local, $count_remote
+                $ancestor,
+                $local,
+                $remote,
+                $count_ancestor,
+                $count_local,
+                $count_remote
             );
         } else {
             $count = $count_ancestor == $count_local ? $count_remote : $count_local;
             $merged = $count > $count_ancestor ?
                 $this->linesAdded(
-                    $ancestor, $local, $remote,
-                    $count, $count_remote, $count_ancestor, $count_local
+                    $ancestor,
+                    $local,
+                    $remote,
+                    $count,
+                    $count_remote,
+                    $count_ancestor,
+                    $count_local
                 ) :
                 $this->linesRemovedOrModified($ancestor, $local, $remote, $count);
         }
@@ -62,8 +71,13 @@ class ThreeWayMerge
     }
 
     protected function linesAdded(
-        array $ancestor,array $local, array $remote,
-        $count, $count_remote,$count_ancestor, $count_local
+        array $ancestor,
+        array $local,
+        array $remote,
+        $count,
+        $count_remote,
+        $count_ancestor,
+        $count_local
     ) {
         $merged = [];
         $counter = 0;
@@ -118,16 +132,19 @@ class ThreeWayMerge
         return $merged;
     }
 
-    protected function linesModified(array $ancestor,array $local,
+    protected function linesModified(array $ancestor,
+        array $local,
         array $remote,
-        $count_ancestor, $count_local, $count_remote
+        $count_ancestor,
+        $count_local,
+        $count_remote
     ) {
         $merged = [];
         $count_array = [$count_ancestor, $count_local, $count_remote];
         sort($count_array);
         $mincount = min($count_local, $count_ancestor, $count_remote);
         $maxcount = max($count_local, $count_ancestor, $count_remote);
-        for ($key = 0 ; $key<$mincount ; $key++) {
+        for ($key = 0; $key < $mincount; $key++) {
             if ($ancestor[$key] == $local[$key]) {
                 $merged[$key] = $remote[$key];
             } elseif ($ancestor[$key] == $remote[$key]
@@ -137,7 +154,7 @@ class ThreeWayMerge
                 throw new Exception("A conflict has occured");
             }
         }
-        for ($key = $mincount ; $key < $count_array[1]; $key++) {
+        for ($key = $mincount; $key < $count_array[1]; $key++) {
             if ($count_ancestor == $mincount
                 && ($count_remote == $maxcount || $count_local == $maxcount)
             ) {
@@ -172,7 +189,7 @@ class ThreeWayMerge
             }
         }
 
-        for ($key = $count_array[1] ; $key < $maxcount ; $key++) {
+        for ($key = $count_array[1]; $key < $maxcount; $key++) {
             if ($count_remote == $maxcount) {
                 $merged[$key] = $remote[$key];
             } elseif ($count_ancestor == $maxcount) {
