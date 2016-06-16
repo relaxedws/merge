@@ -234,7 +234,8 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $result);
     }
     
-    public function testMultilineAdditionModification(){
+    public function testMultilineAdditionModification()
+    {
         $original = [
             'keyA' => ['This is not fun
             I like doing it'],
@@ -261,7 +262,8 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $result);       
     }
 
-    public function testMultilineRemovalModification(){
+    public function testMultilineRemovalModification()
+    {
         $original = [
             'keyA' => ['This is not fun
             I like doing it
@@ -288,7 +290,8 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $result);
     }
 
-    public function testMultilineAdditionRemovalModificationTest1(){
+    public function testMultilineAdditionRemovalModificationTest1()
+    {
         $original = [
             'keyA' => ['This is not fun
             I like doing it'],
@@ -313,7 +316,8 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $result);
     }
 
-    public function testMultilineAdditionRemovalModificationTest2(){
+    public function testMultilineAdditionRemovalModificationTest2()
+    {
         $original = [
             'keyA' => ['This is not fun
             I like doing it
@@ -338,7 +342,8 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $result);
     }
 
-    public function testMultilineAdditionRemovalModificationTest3(){
+    public function testMultilineAdditionRemovalModificationTest3()
+    {
         $original = [
                 'keyA' => ['This is not fun'],
             ];
@@ -363,7 +368,8 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $result);
     }
 
-    public function testMultilineAdditionRemovalModificationTest4(){
+    public function testMultilineAdditionRemovalModificationTest4()
+    {
         $original = [
             'keyA' => ['This is not fun'],
         ];
@@ -387,7 +393,8 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $result);
     }
 
-    public function testMultilineAdditionRemovalModificationTest5(){
+    public function testMultilineAdditionRemovalModificationTest5()
+    {
         $original = [
             'keyA' => ['This is not fun
             I like doing it'],
@@ -411,7 +418,8 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $result);
     }
 
-    public function testMultilineAdditionRemovalModificationTest6(){
+    public function testMultilineAdditionRemovalModificationTest6()
+    {
         $original = [
             'keyA' => ['This is not fun
             I like doing it
@@ -435,7 +443,8 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
         $result = $merge->performMerge($original, $local, $remote);
         $this->assertEquals($expected, $result);
     }
-    public function testMultilineRecursiveAdditionRemovalModification(){
+    public function testMultilineRecursiveAdditionRemovalModification()
+    {
         $original = [
             'keyA' => [
                 0 => [
