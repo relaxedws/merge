@@ -203,4 +203,301 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
             $this->assertTrue(true);
         }
     }
+
+    public function testMultiline()
+    {
+        $original = [
+            'keyA' => ['This is not fun
+            I like doing it
+            it was not easy'],
+        ];
+
+        $local = [
+            'keyA' => ['This is fun
+            I do not like doing it
+            it was not easy'],
+        ];
+
+        $remote = [
+            'keyA' => ['This is not fun
+            I do not like doing it
+            it was easy'],
+        ];
+
+        $expected = [
+            'keyA' => ['This is fun
+            I do not like doing it
+            it was easy'],
+        ];
+        $merge = new ThreeWayMerge();
+        $result = $merge->performMerge($original, $local, $remote);
+        $this->assertEquals($expected, $result);
+    }
+    
+    public function testMultilineAdditionModification(){
+        $original = [
+            'keyA' => ['This is not fun
+            I like doing it'],
+        ];
+
+        $local = [
+            'keyA' => ['This is fun
+            I do not like doing it'],
+        ];
+
+        $remote = [
+            'keyA' => ['This is not fun
+            I do not like doing it
+            it was easy'],
+        ];
+
+        $expected = [
+            'keyA' => ['This is fun
+            I do not like doing it
+            it was easy'],
+        ];
+        $merge = new ThreeWayMerge();
+        $result = $merge->performMerge($original, $local, $remote);
+        $this->assertEquals($expected, $result);       
+    }
+
+    public function testMultilineRemovalModification(){
+        $original = [
+            'keyA' => ['This is not fun
+            I like doing it
+            it was not easy'],
+        ];
+
+        $local = [
+            'keyA' => ['This is fun
+            I do not like doing it
+            it was not easy'],
+        ];
+
+        $remote = [
+            'keyA' => ['This is not fun
+            I like doing it'],
+        ];
+
+        $expected = [
+            'keyA' => ['This is fun
+            I do not like doing it'],
+        ];
+        $merge = new ThreeWayMerge();
+        $result = $merge->performMerge($original, $local, $remote);
+        $this->assertEquals($expected, $result);
+    }
+
+    public function testMultilineAdditionRemovalModificationTest1(){
+        $original = [
+            'keyA' => ['This is not fun
+            I like doing it'],
+        ];
+
+        $local = [
+            'keyA' => ['This is fun
+            I like doing it
+            it was easy'],
+        ];
+
+        $remote = [
+            'keyA' => ['This is not fun'],
+        ];
+
+        $expected = [
+            'keyA' => ['This is fun
+            it was easy'],
+        ];
+        $merge = new ThreeWayMerge();
+        $result = $merge->performMerge($original, $local, $remote);
+        $this->assertEquals($expected, $result);
+    }
+
+    public function testMultilineAdditionRemovalModificationTest2(){
+        $original = [
+            'keyA' => ['This is not fun
+            I like doing it
+            it was easy'],
+        ];
+
+        $local = [
+            'keyA' => ['This is fun
+            I like doing it'],
+        ];
+
+        $remote = [
+            'keyA' => ['This is not fun'],
+        ];
+
+        $expected = [
+            'keyA' => ['This is fun
+            it was easy'],
+        ];
+        $merge = new ThreeWayMerge();
+        $result = $merge->performMerge($original, $local, $remote);
+        $this->assertEquals($expected, $result);
+    }
+
+    public function testMultilineAdditionRemovalModificationTest3(){
+        $original = [
+                'keyA' => ['This is not fun'],
+            ];
+
+        $local = [
+            'keyA' => ['This is fun
+            I like doing it'],
+        ];
+
+        $remote = [
+            'keyA' => ['This is not fun
+            I like doing it
+            it was easy'],
+        ];
+
+        $expected = [
+            'keyA' => ['This is fun
+            it was easy'],
+        ];
+        $merge = new ThreeWayMerge();
+        $result = $merge->performMerge($original, $local, $remote);
+        $this->assertEquals($expected, $result);
+    }
+
+    public function testMultilineAdditionRemovalModificationTest4(){
+        $original = [
+            'keyA' => ['This is not fun'],
+        ];
+
+        $local = [
+            'keyA' => ['This is fun
+            I like doing it
+            it was easy'],
+        ];
+
+        $remote = [
+            'keyA' => ['This is not fun
+            I like doing it'],
+        ];
+        $expected = [
+            'keyA' => ['This is fun
+            it was easy'],
+        ];
+        $merge = new ThreeWayMerge();
+        $result = $merge->performMerge($original, $local, $remote);
+        $this->assertEquals($expected, $result);
+    }
+
+    public function testMultilineAdditionRemovalModificationTest5(){
+        $original = [
+            'keyA' => ['This is not fun
+            I like doing it'],
+        ];
+
+        $local = [
+            'keyA' => ['This is fun'],
+        ];
+
+        $remote = [
+            'keyA' => ['This is not fun
+            I like doing it
+            it was easy'],
+        ];
+        $expected = [
+            'keyA' => ['This is fun
+            it was easy'],
+        ];
+        $merge = new ThreeWayMerge();
+        $result = $merge->performMerge($original, $local, $remote);
+        $this->assertEquals($expected, $result);
+    }
+
+    public function testMultilineAdditionRemovalModificationTest6(){
+        $original = [
+            'keyA' => ['This is not fun
+            I like doing it
+            it was easy'],
+        ];
+
+        $local = [
+            'keyA' => ['This is fun'],
+        ];
+
+        $remote = [
+            'keyA' => ['This is not fun
+            I like doing it'],
+        ];
+
+        $expected = [
+            'keyA' => ['This is fun
+            it was easy'],
+        ];
+        $merge = new ThreeWayMerge();
+        $result = $merge->performMerge($original, $local, $remote);
+        $this->assertEquals($expected, $result);
+    }
+    public function testMultilineRecursiveAdditionRemovalModification(){
+        $original = [
+            'keyA' => [
+                0 => [
+                    'keyB' => 'This is honey
+                    and who cares',
+                    'keyC' => 'This is however, not apple',
+                ],
+                1 => [
+                    'keyB' => 'This is milk',
+                    'keyC' => 'This is mango',
+                ],
+                2 => 'a little sugar
+                this line will be removed and you wont see it',
+            ]
+        ];
+        $local = [
+            'keyA' => [
+                0 => [
+                    'keyB' =>  'This is honey',
+                    'keyC' => 'This is however, not apple',
+                ],
+                2 => 'a little sugar',
+                1 => [
+                    'keyB' => 'This is milky milky',
+                    'keyC' => 'This is mango',
+                ],
+            ]
+        ];
+        $remote = [
+            'keyA' => [
+                0 => [
+                    'keyB' => 'This is updated and purified honey
+                    and who cares
+                    i dont',
+                    'keyC' => 'This is apple',
+                ],
+                1 => [
+                    'keyB' => 'This is milk
+                    and I like milk',
+                    'keyC' => 'This is changed because of remote',
+                ],
+                2 => 'a little new something',
+            ]
+        ];
+
+        $expected = [
+            'keyA' => [
+                0 => [
+                    'keyB' => 'This is updated and purified honey
+                    i dont',
+                    'keyC' => 'This is apple',
+                ],
+                1 => [
+                    'keyB' => 'This is milky milky
+                    and I like milk',
+                    'keyC' => 'This is changed because of remote',
+                ],
+                2 => 'a little new something',
+            ]
+        ];
+        $merge = new ThreeWayMerge();
+        $result = $merge->performMerge($original, $local, $remote);
+        $this->assertEquals($expected, $result);
+    }
 }
