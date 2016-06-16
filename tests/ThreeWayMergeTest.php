@@ -259,7 +259,7 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
         ];
         $merge = new ThreeWayMerge();
         $result = $merge->performMerge($original, $local, $remote);
-        $this->assertEquals($expected, $result);       
+        $this->assertEquals($expected, $result);
     }
 
     public function testMultilineRemovalModification()
