@@ -108,9 +108,11 @@ class ThreeWayMerge
         return $merged;
     }
 
-    protected function linesRemovedOrModified(array $ancestor,
+    protected function linesRemovedOrModified(
+        array $ancestor,
         array $local,
-        array $remote, $count
+        array $remote,
+        $count
     ) {
         $merged = [];
         $counter = 0;
@@ -132,7 +134,8 @@ class ThreeWayMerge
         return $merged;
     }
 
-    protected function linesModified(array $ancestor,
+    protected function linesModified(
+        array $ancestor,
         array $local,
         array $remote,
         $count_ancestor,
