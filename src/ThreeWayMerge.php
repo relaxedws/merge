@@ -40,7 +40,6 @@ class ThreeWayMerge
         }
         else {
             $count = $count_ancestor == $count_local ? $count_remote : $count_local;
-            echo "$count_ancestor => $count_local => $count_remote => $count\n";
             $merged = $count > $count_ancestor ? $this->linesAdded($ancestor, $local, $remote, $count, $count_ancestor, $count_local) : $this->linesRemovedOrModified($ancestor, $local, $remote, $count);
         }
         $merged[$key] = implode(PHP_EOL, $merged);
@@ -92,9 +91,9 @@ class ThreeWayMerge
         $merged = [];
         $count_array = [$count_ancestor,$count_local,$count_remote];
         sort($count_array);
-        $counter = 0;
         $mincount = min($count_local,$count_ancestor,$count_remote);
-        for($key = 0 ; $key<$mincount ; $key++){
+        $maxcount = max($count_local,$count_ancestor,$count_remote);
+        for ($key = 0 ; $key<$mincount ; $key++){
             if ($ancestor[$key] == $local[$key]) {
                 $merged[$key] = $remote[$key];
             } elseif ($ancestor[$key] == $remote[$key] || $local[$key] == $remote[$key]) {
@@ -103,18 +102,50 @@ class ThreeWayMerge
                 throw new Exception("A conflict has occured");
             }
         }
-        for ($key = $mincount; $key<$count_array[1]; $key++){
-            if ($ancestor[$key] == $local[$key]) {
-                $merged[$key] = $remote[$key];
-            } elseif ($ancestor[$key] == $remote[$key] || $local[$key] == $remote[$key]) {
-                $merged[$key] = $local[$key];
-            } else {
-                throw new Exception("A conflict has occured");
+        for ($key = $mincount ; $key < $count_array[1]; $key++){
+            if($count_ancestor == $mincount && ($count_remote == $maxcount || $count_local == $maxcount)){
+                if($local[$key] == $remote[$key]){
+                    if(!isset($ancestor[$key])){
+                        unset($merged[$key]);
+                    }
+                }
+                else {
+                    throw new Exception("A conflict has occured");
+                }
+            }
+            if($count_local == $mincount && ($count_ancestor == $maxcount || $count_remote == $maxcount)){
+                if($ancestor[$key] == $remote[$key]){
+                    if(!isset($local[$key])){
+                        unset($merged[$key]);
+                    }
+                }
+                else {
+                    throw new Exception("A conflict has occured");
+                }
+            }
+            if($count_remote == $mincount && ($count_ancestor == $maxcount || $count_local == $maxcount)){
+                if($local[$key] == $ancestor[$key]){
+                    if(!isset($remote[$key])){
+                        unset($merged[$key]);
+                    }
+                }
+                else {
+                    throw new Exception("A conflict has occured");
+                }
             }
         }
-        for ($i = $count_array[1]; $i < $count_array[2]; $i++) {
-            $count == $count_local ? $merged[$i] = $local[$i] : $merged[$i] = $remote[$i];
+
+        for ($key = $count_array[1] ; $key < $maxcount ; $key++){
+            if($count_remote == $maxcount) {
+                $merged[$key] = $remote[$key];
+            } elseif ($count_ancestor == $maxcount) {
+                echo "$count_ancestor is max count from ancestor";
+                $merged[$key] = $ancestor[$key];
+            } elseif ($count_local == $maxcount){
+                $merged[$key] = $local[$key];
+            }
         }
+
         return $merged;
     }
 }
