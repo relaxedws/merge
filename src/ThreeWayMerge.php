@@ -132,7 +132,7 @@ class ThreeWayMerge
      * @param $count_local
      *
      * @return array
-     * @throws Exception
+     * @throws ConflictException
      */
     protected function linesAddedOrModified(
         array $ancestor,
@@ -152,8 +152,7 @@ class ThreeWayMerge
             $counter = $counter + 1;
             if ($ancestor[$key] == $local[$key]) {
                 $merged[$key] = $remote[$key];
-            } elseif (
-                $ancestor[$key] == $remote[$key]
+            } elseif ($ancestor[$key] == $remote[$key]
                 || $local[$key] == $remote[$key]
             ) {
                 $merged[$key] = $local[$key];
@@ -213,8 +212,7 @@ class ThreeWayMerge
         for ($key = 0; $key < $mincount; $key++) {
             if ($ancestor[$key] == $local[$key]) {
                 $merged[$key] = $remote[$key];
-            } elseif (
-                $ancestor[$key] == $remote[$key]
+            } elseif ($ancestor[$key] == $remote[$key]
                 || $local[$key] == $remote[$key]
             ) {
                 $merged[$key] = $local[$key];
@@ -226,8 +224,7 @@ class ThreeWayMerge
         for ($key = $mincount; $key < $count_array[1]; $key++) {
             if ($mincount == $count_local && $ancestor[$key] != $remote[$key]) {
                 throw new ConflictException("A whole new conflict arised");
-            } elseif (
-                $mincount == $count_remote
+            } elseif ($mincount == $count_remote
                 && $ancestor[$key] != $local[$key]
             ) {
                 throw new ConflictException("A whole new conflict arised");
@@ -270,8 +267,7 @@ class ThreeWayMerge
         for ($key = 0; $key < $mincount; $key++) {
             if ($ancestor[$key] == $local[$key]) {
                 $merged[$key] = $remote[$key];
-            } elseif (
-                $ancestor[$key] == $remote[$key]
+            } elseif ($ancestor[$key] == $remote[$key]
                 || $local[$key] == $remote[$key]
             ) {
                 $merged[$key] = $local[$key];
@@ -291,8 +287,7 @@ class ThreeWayMerge
                 } else {
                     throw new ConflictException("A conflict has occured");
                 }
-            } elseif (
-                $count_local == $mincount
+            } elseif ($count_local == $mincount
                 && ($count_ancestor == $maxcount
                     || $count_remote == $maxcount)
             ) {
