@@ -57,9 +57,9 @@ class ThreeWayMerge
     protected function merge($x, $y, $z, $key)
     {
         // Convert the value into array.
-        $ancestor = strpos($x, PHP_EOL) !== false ? explode(PHP_EOL, $x) : array($x);
-        $local = (strpos($y, PHP_EOL) !== false ? explode(PHP_EOL, $y) : array($y));
-        $remote = (strpos($z, PHP_EOL) !== false ? explode(PHP_EOL, $z) : array($z));
+        $ancestor = (strpos($x, "\n") !== false ? explode("\n", $x) : array($x));
+        $local = (strpos($y, "\n") !== false ? explode("\n", $y) : array($y));
+        $remote = (strpos($z, "\n") !== false ? explode("\n", $z) : array($z));
 
         // Count number of lines in value or elements in new formed array.
         $count_ancestor = count($ancestor);
@@ -152,10 +152,8 @@ class ThreeWayMerge
             $counter = $counter + 1;
             if ($ancestor[$key] == $local[$key]) {
                 $merged[$key] = $remote[$key];
-            } elseif (
-                $ancestor[$key] == $remote[$key]
-                || $local[$key] == $remote[$key]
-            ) {
+            } elseif ($ancestor[$key] == $remote[$key]
+                || $local[$key] == $remote[$key]) {
                 $merged[$key] = $local[$key];
             } else {
                 throw new ConflictException("A conflict has occured");
@@ -213,10 +211,8 @@ class ThreeWayMerge
         for ($key = 0; $key < $mincount; $key++) {
             if ($ancestor[$key] == $local[$key]) {
                 $merged[$key] = $remote[$key];
-            } elseif (
-                $ancestor[$key] == $remote[$key]
-                || $local[$key] == $remote[$key]
-            ) {
+            } elseif ($ancestor[$key] == $remote[$key]
+                || $local[$key] == $remote[$key]) {
                 $merged[$key] = $local[$key];
             } else {
                 throw new ConflictException("A conflict has occured");
@@ -226,10 +222,8 @@ class ThreeWayMerge
         for ($key = $mincount; $key < $count_array[1]; $key++) {
             if ($mincount == $count_local && $ancestor[$key] != $remote[$key]) {
                 throw new ConflictException("A whole new conflict arised");
-            } elseif (
-                $mincount == $count_remote
-                && $ancestor[$key] != $local[$key]
-            ) {
+            } elseif ($mincount == $count_remote
+                && $ancestor[$key] != $local[$key]) {
                 throw new ConflictException("A whole new conflict arised");
             }
         }
@@ -270,10 +264,8 @@ class ThreeWayMerge
         for ($key = 0; $key < $mincount; $key++) {
             if ($ancestor[$key] == $local[$key]) {
                 $merged[$key] = $remote[$key];
-            } elseif (
-                $ancestor[$key] == $remote[$key]
-                || $local[$key] == $remote[$key]
-            ) {
+            } elseif ($ancestor[$key] == $remote[$key]
+                || $local[$key] == $remote[$key]) {
                 $merged[$key] = $local[$key];
             } else {
                 throw new ConflictException("A conflict has occured");
@@ -291,8 +283,7 @@ class ThreeWayMerge
                 } else {
                     throw new ConflictException("A conflict has occured");
                 }
-            } elseif (
-                $count_local == $mincount
+            } elseif ($count_local == $mincount
                 && ($count_ancestor == $maxcount
                     || $count_remote == $maxcount)
             ) {
