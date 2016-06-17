@@ -6,7 +6,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Relaxed\\Merge\\ThreeWayMerge\\": "src/"
+      "Relaxed\\Merge\\": "src/"
     }
   },
   "autoload-dev": {
