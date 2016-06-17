@@ -1,0 +1,17 @@
+{
+  "name": "relaxedws/merge",
+  "description": "Library used to perform merges between normalized array structures.",
+  "require-dev": {
+    "phpunit/phpunit": "~4.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Relaxed\\Merge\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Relaxed\\Merge\\Test\\": "tests/"
+    }
+  }
+}
