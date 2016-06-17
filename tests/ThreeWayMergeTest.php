@@ -3,7 +3,7 @@
 namespace Relaxed\Merge\Test;
 
 use Relaxed\Merge\ConflictException\ConflictException;
-use Relaxed\Merge\ThreeWayMerge\ThreeWayMerge;
+use Relaxed\Merge\ThreeWayMerge;
 
 class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
 {

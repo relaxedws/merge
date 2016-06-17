@@ -1,6 +1,6 @@
 <?php
 
-namespace Relaxed\Merge\ThreeWayMerge;
+namespace Relaxed\Merge;
 
 use Relaxed\Merge\ConflictException\ConflictException;
 
@@ -11,7 +11,7 @@ class ThreeWayMerge
      *
      * @param array $ancestor
      * @param array $local
-     * @param array $remote
+     * @param array $remote 
      *
      * @return array
      */
