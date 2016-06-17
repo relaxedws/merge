@@ -309,7 +309,7 @@ class ThreeWayMerge
             }
         }
 
-        // Third for loops just adds the added key to new array.
+        // Third for loops just adds the newly added lines to new array.
         for ($key = $count_array[1]; $key < $maxcount; $key++) {
             if ($count_remote == $maxcount) {
                 $merged[$key] = $remote[$key];
