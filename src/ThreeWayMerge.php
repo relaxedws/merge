@@ -112,8 +112,8 @@ class ThreeWayMerge
                      $count_ancestor,
                      $count_local,
                      $count_remote
-                );
-             }
+                 );
+            }
         }
         // Convert returned array back to string.
         $merged[$key] = implode(PHP_EOL, $merged);
