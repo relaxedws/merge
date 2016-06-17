@@ -272,7 +272,7 @@ class ThreeWayMerge
         }
         
         // Second for loop compares 2 nodes and if they are identical
-        // add them to new array otherwise throw conflict exception.
+        // add the changes to new array otherwise throw conflict exception.
         for ($key = $mincount; $key < $count_array[1]; $key++) {
             if ($count_ancestor == $mincount
                 && ($count_remote == $maxcount || $count_local == $maxcount)
