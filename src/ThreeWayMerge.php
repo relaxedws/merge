@@ -2,8 +2,6 @@
 
 namespace Relaxed\Merge\ThreeWayMerge;
 
-require __DIR__."/ConflictException.php";
-
 use Relaxed\Merge\ConflictException\ConflictException;
 
 class ThreeWayMerge

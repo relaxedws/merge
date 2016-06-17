@@ -6,12 +6,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Relaxed\\Merge\\ThreeWayMerge\\": "src/"
-    }
-  },
-  "autoload": {
-    "psr-4": {
-      "Relaxed\\Merge\\ConflictException": "src/ConflictException.php"
+      "Relaxed\\Merge\\": "src/"
     }
   },
   "autoload-dev": {
