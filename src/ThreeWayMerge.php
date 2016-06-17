@@ -34,6 +34,7 @@ class ThreeWayMerge
                     $remote[$key],
                     $key
                 );
+                //If a key doesn't have any value, unset the key.
                 if ($merged[$key] == null) {
                     unset($merged[$key]);
                 }
@@ -113,6 +114,7 @@ class ThreeWayMerge
                      $count_remote
                  );
              }
+
         }
         // Convert returned array back to string.
         $merged[$key] = implode(PHP_EOL, $merged);
@@ -226,7 +228,7 @@ class ThreeWayMerge
                 throw new Exception("A whole new conflict arised");
             }
         }
-        return $merged;
+            return $merged;
     }
 
     /**
@@ -297,7 +299,7 @@ class ThreeWayMerge
                 }
             } elseif ($count_remote == $mincount
                 && ($count_ancestor == $maxcount
-                || $count_local == $maxcount)) {
+                    || $count_local == $maxcount)) {
                 if ($local[$key] == $ancestor[$key]) {
                     if (!isset($remote[$key])) {
                         unset($merged[$key]);
