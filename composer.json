@@ -9,6 +9,11 @@
       "Relaxed\\Merge\\ThreeWayMerge\\": "src/"
     }
   },
+  "autoload": {
+    "psr-4": {
+      "Relaxed\\Merge\\ConflictException": "src/ConflictException.php"
+    }
+  },
   "autoload-dev": {
     "psr-4": {
       "Relaxed\\Merge\\Test\\": "tests/"
