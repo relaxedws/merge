@@ -94,7 +94,7 @@ class ThreeWayMerge
             }
             // If $count > $count_ancestor, that means lines have been added.
             // Otherwise, lines has been removed or modified.
-             if ($count > $count_ancestor) {
+            if ($count > $count_ancestor) {
                  $merged = $this->linesAddedOrModified(
                      $ancestor,
                      $local,
@@ -104,7 +104,7 @@ class ThreeWayMerge
                      $count_ancestor,
                      $count_local
                  );
-             } else {
+            } else {
                  $merged = $this->linesRemovedOrModified(
                      $ancestor,
                      $local,
@@ -112,9 +112,8 @@ class ThreeWayMerge
                      $count_ancestor,
                      $count_local,
                      $count_remote
-                 );
+                );
              }
-
         }
         // Convert returned array back to string.
         $merged[$key] = implode(PHP_EOL, $merged);
@@ -236,14 +235,14 @@ class ThreeWayMerge
      * takes place simuntaneously.
      * Example: 2 lines in ancestor, 3 lines in local.
      * and 1 line in remote.
-     * 
+     *
      * @param array $ancestor
      * @param array $local
      * @param array $remote
      * @param int   $count_ancestor
      * @param int   $count_local
      * @param int   $count_remote
-     * 
+     *
      * @return array
      * @throws Exception
      */
