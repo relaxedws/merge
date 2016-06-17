@@ -2,7 +2,7 @@
 
 namespace Relaxed\Merge\Test;
 
-use Exception;
+use Relaxed\Merge\ConflictException\ConflictException;
 use Relaxed\Merge\ThreeWayMerge\ThreeWayMerge;
 
 class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
@@ -199,7 +199,7 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
         try {
             $merge->performMerge($original, $local, $remote);
             $this->fail('Exception was not thrown.');
-        } catch (Exception $e) {
+        } catch (ConflictException $e) {
             $this->assertTrue(true);
         }
     }
