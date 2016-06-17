@@ -2,7 +2,7 @@
 
 namespace Relaxed\Merge;
 
-use Relaxed\Merge\ConflictException\ConflictException;
+use Relaxed\Merge\ConflictException;
 
 class ThreeWayMerge
 {
