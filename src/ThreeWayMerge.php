@@ -34,7 +34,6 @@ class ThreeWayMerge
                     $remote[$key],
                     $key
                 );
-                //If a key doesn't have any value, unset the key.
                 if ($merged[$key] == null) {
                     unset($merged[$key]);
                 }
@@ -77,7 +76,7 @@ class ThreeWayMerge
             && $count_local!= $count_remote
             && $count_ancestor != $count_remote
         ) {
-            $merged = $this->linesModified(
+            $merged = $this->linesAddedRemovedAndModified(
                 $ancestor,
                 $local,
                 $remote,
@@ -87,27 +86,33 @@ class ThreeWayMerge
             );
         } else {
             // Store the updated count value in a variable $count.
-            $count = $count_ancestor == $count_local ? $count_remote : $count_local;
+            if ($count_ancestor == $count_local) {
+                $count = $count_remote;
+            } else {
+                $count = $count_local;
+            }
             // If $count > $count_ancestor, that means lines have been added.
             // Otherwise, lines has been removed or modified.
-            $merged = $count > $count_ancestor ?
-                $this->linesAdded(
-                    $ancestor,
-                    $local,
-                    $remote,
-                    $count,
-                    $count_remote,
-                    $count_ancestor,
-                    $count_local
-                ) :
-                $this->linesRemovedOrModified(
-                    $ancestor,
-                    $local,
-                    $remote,
-                    $count_ancestor,
-                    $count_local,
-                    $count_remote
-                );
+             if ($count > $count_ancestor) {
+                 $merged = $this->linesAddedOrModified(
+                     $ancestor,
+                     $local,
+                     $remote,
+                     $count,
+                     $count_remote,
+                     $count_ancestor,
+                     $count_local
+                 );
+             } else {
+                 $merged = $this->linesRemovedOrModified(
+                     $ancestor,
+                     $local,
+                     $remote,
+                     $count_ancestor,
+                     $count_local,
+                     $count_remote
+                 );
+             }
         }
         // Convert returned array back to string.
         $merged[$key] = implode(PHP_EOL, $merged);
@@ -128,7 +133,7 @@ class ThreeWayMerge
      * @return array
      * @throws Exception
      */
-    protected function linesAdded(
+    protected function linesAddedOrModified(
         array $ancestor,
         array $local,
         array $remote,
@@ -225,9 +230,9 @@ class ThreeWayMerge
     }
 
     /**
-     * Method to deal with the case where Addition and removal
+     * Method to deal with the case where Addition and removal.
      * takes place simuntaneously.
-     * Example: 2 lines in ancestor, 3 lines in local
+     * Example: 2 lines in ancestor, 3 lines in local.
      * and 1 line in remote.
      * 
      * @param array $ancestor
@@ -240,7 +245,7 @@ class ThreeWayMerge
      * @return array
      * @throws Exception
      */
-    protected function linesModified(
+    protected function linesAddedRemovedAndModified(
         array $ancestor,
         array $local,
         array $remote,
@@ -292,7 +297,7 @@ class ThreeWayMerge
                 }
             } elseif ($count_remote == $mincount
                 && ($count_ancestor == $maxcount
-                    || $count_local == $maxcount)) {
+                || $count_local == $maxcount)) {
                 if ($local[$key] == $ancestor[$key]) {
                     if (!isset($remote[$key])) {
                         unset($merged[$key]);
