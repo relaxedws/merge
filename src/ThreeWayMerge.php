@@ -11,7 +11,7 @@ class ThreeWayMerge
      *
      * @param array $ancestor
      * @param array $local
-     * @param array $remote 
+     * @param array $remote
      *
      * @return array
      */
