@@ -279,9 +279,7 @@ class ThreeWayMerge
                 && ($count_remote == $maxcount || $count_local == $maxcount)
             ) {
                 if ($local[$key] == $remote[$key]) {
-                    if (!isset($ancestor[$key])) {
-                        unset($merged[$key]);
-                    }
+                    $merged[$key] = $local[$key];
                 } else {
                     throw new Exception("A conflict has occured");
                 }

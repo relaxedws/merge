@@ -361,6 +361,7 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
 
         $expected = [
             'keyA' => ['This is fun
+            I like doing it
             it was easy'],
         ];
         $merge = new ThreeWayMerge();
@@ -386,6 +387,7 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
         ];
         $expected = [
             'keyA' => ['This is fun
+            I like doing it
             it was easy'],
         ];
         $merge = new ThreeWayMerge();
