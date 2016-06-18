@@ -1,6 +1,6 @@
 <?php
 
-namespace Relaxed\Merge\ThreeWayMerge;
+namespace Relaxed\Merge;
 
 use Relaxed\Merge\ConflictException;
 
