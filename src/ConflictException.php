@@ -1,6 +1,6 @@
 <?php
 
-namespace Relaxed\Merge\ConflictException;
+namespace Relaxed\Merge ;
 
 use Exception;
 
