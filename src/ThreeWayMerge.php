@@ -1,6 +1,6 @@
 <?php
 
-namespace Relaxed\Merge\ThreeWayMerge;
+namespace Relaxed\Merge;
 
 use Relaxed\Merge\ConflictException;
 
@@ -21,24 +21,36 @@ class ThreeWayMerge
         $merged = [];
         foreach ($ancestor as $key => $value) {
             // Checks if the value contains an array itself.
-            if (is_array($value)) {
+            if (is_array($value) && array_key_exists($key, $local) && array_key_exists($key, $remote)) {
                 $merged[$key] = $this->performMerge(
                     $value,
                     $local[$key],
                     $remote[$key]
                 );
             } else {
-                $merged[$key] = $this->merge(
-                    $ancestor[$key],
-                    $local[$key],
-                    $remote[$key],
-                    $key
-                );
-                //If a key doesn't have any value, unset the key.
-                if ($merged[$key] == null) {
+                if (array_key_exists($key, $local) && array_key_exists($key, $remote)) {
+                    $merged[$key] = $this->merge(
+                        $ancestor[$key],
+                        $local[$key],
+                        $remote[$key],
+                        $key
+                    );
+                } elseif (array_key_exists($key, $local)) {
+                    if ($ancestor[$key] != $local[$key]){
+                        throw new ConflictException("A conflict has occured");
+                    }
+                } elseif (array_key_exists($key, $remote)) {
+                    if ($ancestor[$key] != $remote[$key]){
+                        throw new ConflictException("A conflict has occured");
+                    }
+                } else {
                     unset($merged[$key]);
                 }
             }
+                //If a key doesn't have any value, unset the key.
+//            if ($merged[$key] == null) {
+//                unset($merged[$key]);
+//            }
         }
         return $merged;
     }
@@ -259,7 +271,7 @@ class ThreeWayMerge
         sort($count_array);
         $mincount = min($count_local, $count_ancestor, $count_remote);
         $maxcount = max($count_local, $count_ancestor, $count_remote);
-        
+
         // First for loop compares all 3 nodes and returns updated node.
         for ($key = 0; $key < $mincount; $key++) {
             if ($ancestor[$key] == $local[$key]) {
@@ -271,7 +283,7 @@ class ThreeWayMerge
                 throw new ConflictException("A conflict has occured");
             }
         }
-        
+
         // Second for loop compares 2 nodes and if they are identical
         // add the changes to new array otherwise throw conflict exception.
         for ($key = $mincount; $key < $count_array[1]; $key++) {
