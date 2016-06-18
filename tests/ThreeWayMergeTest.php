@@ -732,4 +732,112 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
             $this->assertTrue(true);
         }
     }
+    // Removed Key keyA=>0 in remote.
+    public function testKeyRemoval()
+    {
+        $original = [
+            'keyA' => [
+                0 => [
+                    'keyB' => 'This is honey',
+                    'keyC' => 'This is however, not apple',
+                ],
+                1 => [
+                    'keyB' => 'This is milk',
+                    'keyC' => 'This is mango',
+                ],
+                2 => 'a little sugar',
+            ]
+        ];
+        $local = [
+            'keyA' => [
+                0 => [
+                    'keyB' => 'This is honey',
+                    'keyC' => 'This is however, not apple',
+                ],
+                2 => 'a little coffee',
+                1 => [
+                    'keyB' => 'This is milky milky',
+                    'keyC' => 'This is mango',
+                ],
+            ]
+        ];
+        $remote = [
+            'keyA' => [
+                1 => [
+                    'keyB' => 'This is milk',
+                    'keyC' => 'This is changed because of remote',
+                ],
+                2 => 'a little sugar',
+            ]
+        ];
+        $expected = [
+            'keyA' => [
+                1 => [
+                    'keyB' => 'This is milky milky',
+                    'keyC' => 'This is changed because of remote',
+                ],
+                2 => 'a little coffee',
+            ]
+        ];
+        $merge = new ThreeWayMerge();
+        $result = $merge->performMerge($original, $local, $remote);
+        $this->assertEquals($expected, $result);
+    }
+    // Removed Key keyA=>2 in local
+    public function testKeyRemoval2()
+    {
+        $original = [
+            'keyA' => [
+                0 => [
+                    'keyB' => 'This is honey',
+                    'keyC' => 'This is however, not apple',
+                ],
+                1 => [
+                    'keyB' => 'This is milk',
+                    'keyC' => 'This is mango',
+                ],
+                2 => 'a little sugar',
+            ]
+        ];
+        $local = [
+            'keyA' => [
+                0 => [
+                    'keyB' => 'This is honey',
+                    'keyC' => 'This is however, not apple',
+                ],
+                1 => [
+                    'keyB' => 'This is milky milky',
+                    'keyC' => 'This is mango',
+                ],
+            ]
+        ];
+        $remote = [
+            'keyA' => [
+                0 => [
+                    'keyB' => 'This is honey',
+                    'keyC' => 'This is however, not apple',
+                ],
+                1 => [
+                    'keyB' => 'This is milk',
+                    'keyC' => 'This is changed because of remote',
+                ],
+                2 => 'a little sugar',
+            ]
+        ];
+        $expected = [
+            'keyA' => [
+                0 => [
+                    'keyB' => 'This is honey',
+                    'keyC' => 'This is however, not apple',
+                ],
+                1 => [
+                    'keyB' => 'This is milky milky',
+                    'keyC' => 'This is changed because of remote',
+                ],
+            ]
+        ];
+        $merge = new ThreeWayMerge();
+        $result = $merge->performMerge($original, $local, $remote);
+        $this->assertEquals($expected, $result);
+    }
 }
