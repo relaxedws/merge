@@ -36,11 +36,11 @@ class ThreeWayMerge
                         $key
                     );
                 } elseif (array_key_exists($key, $local)) {
-                    if ($ancestor[$key] != $local[$key]){
+                    if ($ancestor[$key] != $local[$key]) {
                         throw new ConflictException("A conflict has occured");
                     }
                 } elseif (array_key_exists($key, $remote)) {
-                    if ($ancestor[$key] != $remote[$key]){
+                    if ($ancestor[$key] != $remote[$key]) {
                         throw new ConflictException("A conflict has occured");
                     }
                 } else {
