@@ -65,9 +65,9 @@ class ThreeWayMerge
     protected function merge($x, $y, $z, $key)
     {
         // Convert the value into array.
-        $ancestor = (strpos($x, "\n") !== false ? explode("\n", $x) : array($x));
-        $local = (strpos($y, "\n") !== false ? explode("\n", $y) : array($y));
-        $remote = (strpos($z, "\n") !== false ? explode("\n", $z) : array($z));
+        $ancestor = (strpos($x, PHP_EOL) !== false ? explode(PHP_EOL, $x) : array($x));
+        $local = (strpos($y, PHP_EOL) !== false ? explode(PHP_EOL, $y) : array($y));
+        $remote = (strpos($z, PHP_EOL) !== false ? explode(PHP_EOL, $z) : array($z));
 
         // Count number of lines in value or elements in new formed array.
         $count_ancestor = count($ancestor);
