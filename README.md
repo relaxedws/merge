@@ -3,7 +3,7 @@
 A Library to perform recursive 3 way merge algorithm
 on associative arrays, written in PHP.
 
-## Quickstart Example
+## Example
 
 After [installation](#install), we can perform a merge the following way:
 
