@@ -42,7 +42,6 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
      * Test function for Recursive Key Value Pairs.
      *
      * @return Merged array.
-     * @throws Exception
      */
     public function testRecursiveKeyValue()
     {
@@ -109,7 +108,6 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
      * Test function for Same key but in different Order.
      *
      * @return Merged array.
-     * @throws Exception
      */
     public function testKeyInDifferentOrder()
     {
@@ -175,7 +173,6 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
     /**
      * Test function for cases when merge conflict would arise.
      *
-     * @return Merged array.
      * @throws Exception
      */
     public function testConflict()
@@ -208,7 +205,7 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
      * Test for multiline modification
      * in same number of lines.
      *
-     * @throws ConflictException
+     * @return merged array.
      */
     public function testMultiline()
     {
@@ -243,7 +240,7 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
     /**
      * Test for lines addition and modification.
      *
-     * @throws ConflictException
+     * @return merged array.
      */
     public function testMultilineAdditionModification()
     {
@@ -276,7 +273,7 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
     /**
      * Test for lines removal and modification.
      *
-     * @throws ConflictException
+     * @return merged array.
      */
     public function testMultilineRemovalModification()
     {
@@ -310,7 +307,7 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
      * Test to assert the Addition, removal and
      * modification in the values all at the same time.
      *
-     * @throws ConflictException
+     * @return merged array.
      */
     public function testMultilineAdditionRemovalModification1()
     {
@@ -342,7 +339,7 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
      * Test to assert the Addition, removal and
      * modification in the values all at the same time.
      *
-     * @throws ConflictException
+     * @return merged array.
      */
     public function testMultilineAdditionRemovalModification2()
     {
@@ -374,7 +371,7 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
      * Test to assert the Addition, removal and
      * modification in the values all at the same time.
      *
-     * @throws ConflictException
+     * @return merged array.
      */
     public function testMultilineAdditionRemovalModification3()
     {
@@ -407,7 +404,7 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
      * Test to assert the Addition, removal and
      * modification in the values all at the same time.
      *
-     * @throws ConflictException
+     * @return merged array.
      */
     public function testMultilineAdditionRemovalModification4()
     {
@@ -439,7 +436,7 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
      * Test to assert the Addition, removal and
      * modification in the values all at the same time.
      *
-     * @throws ConflictException
+     * @return merged array.
      */
     public function testMultilineAdditionRemovalModification5()
     {
@@ -470,7 +467,7 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
      * Test to assert the Addition, removal and
      * modification in the values all at the same time.
      *
-     * @throws ConflictException
+     * @return merged array.
      */
     public function testMultilineAdditionRemovalModification6()
     {
@@ -502,7 +499,7 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
      * Test to assert the Addition, removal and
      * modification in the values all at the same time.
      *
-     * @throws ConflictException
+     * @return merged array.
      */
     public function testMultilineRecursiveAdditionRemovalModification7()
     {
@@ -815,6 +812,8 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
     /**
      * Test for the case when a key is removed in
      * either local or remote or both.
+     *
+     * @return merged array.
      */
     public function testKeyRemoval()
     {
@@ -870,6 +869,8 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
     /**
      * Test for the case when a key is removed in
      * either local or remote or both.
+     *
+     * @return merged array.
      */
     public function testKeyRemoval2()
     {
@@ -931,6 +932,8 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
     /**
      * Test for the case when a key is removed in
      * either local or remote or both.
+     *
+     * @return merged array.
      */
     public function testKeyRemoval3()
     {
