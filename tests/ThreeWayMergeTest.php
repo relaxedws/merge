@@ -242,7 +242,7 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test for lines addition and modification.
-     * 
+     *
      * @throws ConflictException
      */
     public function testMultilineAdditionModification()
