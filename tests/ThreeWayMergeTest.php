@@ -377,7 +377,7 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
     {
         $original = [
                 'keyA' => ['This is not fun'],
-            ];
+        ];
 
         $local = [
             'keyA' => ['This is fun
