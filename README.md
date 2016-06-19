@@ -6,7 +6,7 @@ on associative arrays, written in PHP.
 ## Insight
 
 This library is built to perform a recursive 3 way merge algorithm. It takes 3 parameters which are arrays representing base entity, local entity and remote entity. It compares each of these entities with other entities line by line.
-If only one out of remote or local is updated out of these 3, the final revision will have all the unchanged data in it along with the update data from the update entity(Either remote or local). If more than one entity is updated on the same line, it'd throw a `ConflictException`.
+If only one out of remote or local is updated out of these 3, the final revision will have all the unchanged data in it along with the update data from the update entity (Either remote or local). If more than one entity is updated on the same line, it'd throw a `ConflictException`.
 
 
 ## Install
