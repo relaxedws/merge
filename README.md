@@ -1,6 +1,6 @@
 # Relaxedws/merge [![Build Status](https://travis-ci.org/relaxedws/merge.svg?branch=master)](https://travis-ci.org/relaxedws/merge)
 
-A Library to perform recursive 3 way merge algorithm
+A Library to perform recursive 3-way merge algorithm
 on associative arrays, written in PHP.
 
 ## Insight
