@@ -15,20 +15,10 @@ The library can be installed via [composer](http://getcomposer.org).
 
 ````JSON
 {
-  "name": "relaxedws/merge",
-  "description": "Library used to perform merges between normalized array structures.",
-  "require-dev": {
-    "phpunit/phpunit": "~4.0"
-  },
-  "autoload": {
-    "psr-4": {
-      "Relaxed\\Merge\\": "src/"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Relaxed\\Merge\\Test\\": "tests/"
-    }
+  "name": "myorg/mylib",
+  "description": "A library depending on 3-way merge",
+  "require": {
+    "relaxedws/merge": "dev-master",
   }
 }
 ````
@@ -89,8 +79,8 @@ $remote = [
     ]
 ];
 
-$multiline = new ThreeWayMerge();
-$new_arr = $multiline->performMerge($original, $local, $remote);
+$merge = new ThreeWayMerge();
+$updated_revision = $merge->performMerge($original, $local, $remote);
 ````
 
 ## Contributing
@@ -105,4 +95,3 @@ Other than directly working with the code, you can also help us with better docu
 or adding more content to the `readme` file.
 
 We are open to feedback, suggestions and questions.
-We are always present at ``#drupal8-ports` on `irc.freenode.net` .
