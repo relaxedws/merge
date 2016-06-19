@@ -204,6 +204,12 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * Test for multiline modification
+     * in same number of lines.
+     *
+     * @throws ConflictException
+     */
     public function testMultiline()
     {
         $original = [
@@ -233,7 +239,12 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
         $result = $merge->performMerge($original, $local, $remote);
         $this->assertEquals($expected, $result);
     }
-    
+
+    /**
+     * Test for lines addition and modification.
+     * 
+     * @throws ConflictException
+     */
     public function testMultilineAdditionModification()
     {
         $original = [
@@ -262,6 +273,11 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $result);
     }
 
+    /**
+     * Test for lines removal and modification.
+     *
+     * @throws ConflictException
+     */
     public function testMultilineRemovalModification()
     {
         $original = [
@@ -290,7 +306,13 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $result);
     }
 
-    public function testMultilineAdditionRemovalModificationTest1()
+    /**
+     * Test to assert the Addition, removal and
+     * modification in the values all at the same time.
+     *
+     * @throws ConflictException
+     */
+    public function testMultilineAdditionRemovalModification1()
     {
         $original = [
             'keyA' => ['This is not fun
@@ -316,7 +338,13 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $result);
     }
 
-    public function testMultilineAdditionRemovalModificationTest2()
+    /**
+     * Test to assert the Addition, removal and
+     * modification in the values all at the same time.
+     *
+     * @throws ConflictException
+     */
+    public function testMultilineAdditionRemovalModification2()
     {
         $original = [
             'keyA' => ['This is not fun
@@ -342,7 +370,13 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $result);
     }
 
-    public function testMultilineAdditionRemovalModificationTest3()
+    /**
+     * Test to assert the Addition, removal and
+     * modification in the values all at the same time.
+     *
+     * @throws ConflictException
+     */
+    public function testMultilineAdditionRemovalModification3()
     {
         $original = [
                 'keyA' => ['This is not fun'],
@@ -369,7 +403,13 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $result);
     }
 
-    public function testMultilineAdditionRemovalModificationTest4()
+    /**
+     * Test to assert the Addition, removal and
+     * modification in the values all at the same time.
+     *
+     * @throws ConflictException
+     */
+    public function testMultilineAdditionRemovalModification4()
     {
         $original = [
             'keyA' => ['This is not fun'],
@@ -395,7 +435,13 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $result);
     }
 
-    public function testMultilineAdditionRemovalModificationTest5()
+    /**
+     * Test to assert the Addition, removal and
+     * modification in the values all at the same time.
+     *
+     * @throws ConflictException
+     */
+    public function testMultilineAdditionRemovalModification5()
     {
         $original = [
             'keyA' => ['This is not fun
@@ -420,7 +466,13 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $result);
     }
 
-    public function testMultilineAdditionRemovalModificationTest6()
+    /**
+     * Test to assert the Addition, removal and
+     * modification in the values all at the same time.
+     *
+     * @throws ConflictException
+     */
+    public function testMultilineAdditionRemovalModification6()
     {
         $original = [
             'keyA' => ['This is not fun
@@ -445,7 +497,14 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
         $result = $merge->performMerge($original, $local, $remote);
         $this->assertEquals($expected, $result);
     }
-    public function testMultilineRecursiveAdditionRemovalModification()
+
+    /**
+     * Test to assert the Addition, removal and
+     * modification in the values all at the same time.
+     *
+     * @throws ConflictException
+     */
+    public function testMultilineRecursiveAdditionRemovalModification7()
     {
         $original = [
             'keyA' => [
@@ -511,7 +570,12 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
         $result = $merge->performMerge($original, $local, $remote);
         $this->assertEquals($expected, $result);
     }
-    // Conflict in KeyA=>0=>KeyB.
+
+    /**
+     * Test that assert conflicts when a key are modified in both versions.
+     *
+     * @throws ConflictException
+     */
     public function testMultilineConflict1()
     {
         $original = [
@@ -566,7 +630,12 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
             $this->assertTrue(true);
         }
     }
-    // Conflict in KeyA=>0=>KeyC
+
+    /**
+    * Test that assert conflicts when a key are modified in both versions.
+    *
+    * @throws ConflictException
+    */
     public function testMultilineConflict2()
     {
         $original = [
@@ -621,7 +690,12 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
             $this->assertTrue(true);
         }
     }
-    // Conflict in KeyA=>1=>KeyC.
+
+    /**
+     * Test that assert conflicts when a key are modified in both versions.
+     *
+     * @throws ConflictException
+     */
     public function testMultilineConflict3()
     {
         $original = [
@@ -678,7 +752,12 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
             $this->assertTrue(true);
         }
     }
-    // Conflict in KeyA=>2
+
+    /**
+     * Test that assert conflicts when a key are modified in both versions.
+     *
+     * @throws ConflictException
+     */
     public function testMultilineConflict4()
     {
         $original = [
@@ -732,7 +811,11 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
             $this->assertTrue(true);
         }
     }
-    // Removed Key keyA=>0 in remote.
+
+    /**
+     * Test for the case when a key is removed in
+     * either local or remote or both.
+     */
     public function testKeyRemoval()
     {
         $original = [
@@ -783,7 +866,11 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
         $result = $merge->performMerge($original, $local, $remote);
         $this->assertEquals($expected, $result);
     }
-    // Removed Key keyA=>2 in local
+
+    /**
+     * Test for the case when a key is removed in
+     * either local or remote or both.
+     */
     public function testKeyRemoval2()
     {
         $original = [
@@ -833,6 +920,54 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
                 1 => [
                     'keyB' => 'This is milky milky',
                     'keyC' => 'This is changed because of remote',
+                ],
+            ]
+        ];
+        $merge = new ThreeWayMerge();
+        $result = $merge->performMerge($original, $local, $remote);
+        $this->assertEquals($expected, $result);
+    }
+
+    /**
+     * Test for the case when a key is removed in
+     * either local or remote or both.
+     */
+    public function testKeyRemoval3()
+    {
+        $original = [
+            'keyA' => [
+                0 => [
+                    'keyB' => 'This is honey',
+                    'keyC' => 'This is apple',
+                ],
+                1 => [
+                    'keyB' => 'This is milk',
+                    'keyC' => 'This is mango',
+                ],
+                2 => 'a little sugar',
+            ]
+        ];
+        $local = [
+            'keyA' => [
+                0 => [
+                    'keyB' => 'This is honeypie',
+                    'keyC' => 'This is apple',
+                ],
+            ]
+        ];
+        $remote = [
+            'keyA' => [
+                0 => [
+                    'keyB' => 'This is honey',
+                    'keyC' => 'This is however, not apple',
+                ],
+            ]
+        ];
+        $expected = [
+            'keyA' => [
+                0 => [
+                    'keyB' => 'This is honeypie',
+                    'keyC' => 'This is however, not apple',
                 ],
             ]
         ];

@@ -47,10 +47,6 @@ class ThreeWayMerge
                     unset($merged[$key]);
                 }
             }
-            //If a key doesn't have any value, unset the key.
-//            if ($merged[$key] == null) {
-//                unset($merged[$key]);
-//            }
         }
         return $merged;
     }
