@@ -35,22 +35,21 @@ class ThreeWayMerge
                         $remote[$key],
                         $key
                     );
+                    if ($merged[$key] == -1) {
+                        throw new ConflictException("Conflict in Key $key");
+                    }
                 } elseif (array_key_exists($key, $local)) {
                     if ($ancestor[$key] != $local[$key]) {
-                        throw new ConflictException("A conflict has occured");
+                        throw new ConflictException("$key not same in Ancestor and Local");
                     }
                 } elseif (array_key_exists($key, $remote)) {
                     if ($ancestor[$key] != $remote[$key]) {
-                        throw new ConflictException("A conflict has occured");
+                        throw new ConflictException("$key not same in Ancestor and Remote");
                     }
                 } else {
                     unset($merged[$key]);
                 }
             }
-                //If a key doesn't have any value, unset the key.
-//            if ($merged[$key] == null) {
-//                unset($merged[$key]);
-//            }
         }
         return $merged;
     }
@@ -69,9 +68,9 @@ class ThreeWayMerge
     protected function merge($x, $y, $z, $key)
     {
         // Convert the value into array.
-        $ancestor = (strpos($x, "\n") !== false ? explode("\n", $x) : array($x));
-        $local = (strpos($y, "\n") !== false ? explode("\n", $y) : array($y));
-        $remote = (strpos($z, "\n") !== false ? explode("\n", $z) : array($z));
+        $ancestor = (strpos($x, PHP_EOL) !== false ? explode(PHP_EOL, $x) : array($x));
+        $local = (strpos($y, PHP_EOL) !== false ? explode(PHP_EOL, $y) : array($y));
+        $remote = (strpos($z, PHP_EOL) !== false ? explode(PHP_EOL, $z) : array($z));
 
         // Count number of lines in value or elements in new formed array.
         $count_ancestor = count($ancestor);
@@ -107,24 +106,30 @@ class ThreeWayMerge
             // If $count > $count_ancestor, that means lines have been added.
             // Otherwise, lines has been removed or modified.
             if ($count > $count_ancestor) {
-                 $merged = $this->linesAddedOrModified(
-                     $ancestor,
-                     $local,
-                     $remote,
-                     $count,
-                     $count_remote,
-                     $count_ancestor,
-                     $count_local
-                 );
+                $merged = $this->linesAddedOrModified(
+                    $ancestor,
+                    $local,
+                    $remote,
+                    $count,
+                    $count_remote,
+                    $count_ancestor,
+                    $count_local
+                );
+                if ($merged == -1) {
+                    return -1;
+                }
             } else {
-                 $merged = $this->linesRemovedOrModified(
-                     $ancestor,
-                     $local,
-                     $remote,
-                     $count_ancestor,
-                     $count_local,
-                     $count_remote
-                 );
+                $merged = $this->linesRemovedOrModified(
+                    $ancestor,
+                    $local,
+                    $remote,
+                    $count_ancestor,
+                    $count_local,
+                    $count_remote
+                );
+                if ($merged == -1) {
+                    return -1;
+                }
             }
         }
         // Convert returned array back to string.
@@ -168,7 +173,7 @@ class ThreeWayMerge
                 || $local[$key] == $remote[$key]) {
                 $merged[$key] = $local[$key];
             } else {
-                throw new ConflictException("A conflict has occured");
+                return -1;
             }
         }
         // Once done with ancestor lines, we have hunk of
@@ -184,7 +189,7 @@ class ThreeWayMerge
                 if ($local[$i] == $remote[$i]) {
                     $merged[$i] = $local[$i];
                 } else {
-                    throw new ConflictException("A conflict has occured");
+                    return -1;
                 }
             }
         }
@@ -227,7 +232,7 @@ class ThreeWayMerge
                 || $local[$key] == $remote[$key]) {
                 $merged[$key] = $local[$key];
             } else {
-                throw new ConflictException("A conflict has occured");
+                return -1;
             }
         }
 
@@ -236,10 +241,10 @@ class ThreeWayMerge
                 throw new ConflictException("A whole new conflict arised");
             } elseif ($mincount == $count_remote
                 && $ancestor[$key] != $local[$key]) {
-                throw new ConflictException("A whole new conflict arised");
+                return -1;
             }
         }
-            return $merged;
+        return $merged;
     }
 
     /**
@@ -280,7 +285,7 @@ class ThreeWayMerge
                 || $local[$key] == $remote[$key]) {
                 $merged[$key] = $local[$key];
             } else {
-                throw new ConflictException("A conflict has occured");
+                return -1;
             }
         }
 
@@ -314,7 +319,7 @@ class ThreeWayMerge
                         unset($merged[$key]);
                     }
                 } else {
-                    throw new ConflictException("A conflict has occured");
+                    return -1;
                 }
             }
         }
