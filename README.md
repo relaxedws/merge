@@ -1,12 +1,13 @@
 # Relaxedws/merge [![Build Status](https://travis-ci.org/relaxedws/merge.svg?branch=master)](https://travis-ci.org/relaxedws/merge)
 
-A Library to perform recursive 3 way merge algorithm
+A Library to perform recursive 3-way merge algorithm
 on associative arrays, written in PHP.
 
 ## Insight
 
-This library is built to perform a recursive 3 way merge algorithm. It takes 3 parameters which are arrays representing base entity, local entity and remote entity. It compares each of these entities with other entities line by line. 
-If only one out of remote or local is updated out of these 3, the final revision will have all the unchanged data in it along with the update data from the update entity(Either remote or local). If more than one entity is updated on the same line, it'd throw a `ConflictException`.
+This library is built to perform a recursive 3-way merge algorithm. It takes 3 parameters which are arrays representing base array, local array and remote array. It compares each of these entities with other arrays line-wise.
+If only one out of remote or local is updated out of these 3, the final revision will have all the unchanged data in it along with the update data from the update array (Either remote or local). If more than one array is updated on the same line, it'd throw a `ConflictException`.
+
 
 
 ## Install
