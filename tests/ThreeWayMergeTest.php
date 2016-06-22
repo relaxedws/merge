@@ -42,7 +42,6 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
      * Test function for Recursive Key Value Pairs.
      *
      * @return Merged array.
-     * @throws Exception
      */
     public function testRecursiveKeyValue()
     {
@@ -109,7 +108,6 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
      * Test function for Same key but in different Order.
      *
      * @return Merged array.
-     * @throws Exception
      */
     public function testKeyInDifferentOrder()
     {
@@ -175,7 +173,6 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
     /**
      * Test function for cases when merge conflict would arise.
      *
-     * @return Merged array.
      * @throws Exception
      */
     public function testConflict()
@@ -204,6 +201,12 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * Test for multiline modification
+     * in same number of lines.
+     *
+     * @return merged array.
+     */
     public function testMultiline()
     {
         $original = [
@@ -233,7 +236,12 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
         $result = $merge->performMerge($original, $local, $remote);
         $this->assertEquals($expected, $result);
     }
-    
+
+    /**
+     * Test for lines addition and modification.
+     *
+     * @return merged array.
+     */
     public function testMultilineAdditionModification()
     {
         $original = [
@@ -262,6 +270,11 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $result);
     }
 
+    /**
+     * Test for lines removal and modification.
+     *
+     * @return merged array.
+     */
     public function testMultilineRemovalModification()
     {
         $original = [
@@ -290,7 +303,13 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $result);
     }
 
-    public function testMultilineAdditionRemovalModificationTest1()
+    /**
+     * Test to assert the Addition, removal and
+     * modification in the values all at the same time.
+     *
+     * @return merged array.
+     */
+    public function testMultilineAdditionRemovalModification1()
     {
         $original = [
             'keyA' => ['This is not fun
@@ -316,7 +335,13 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $result);
     }
 
-    public function testMultilineAdditionRemovalModificationTest2()
+    /**
+     * Test to assert the Addition, removal and
+     * modification in the values all at the same time.
+     *
+     * @return merged array.
+     */
+    public function testMultilineAdditionRemovalModification2()
     {
         $original = [
             'keyA' => ['This is not fun
@@ -342,11 +367,17 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $result);
     }
 
-    public function testMultilineAdditionRemovalModificationTest3()
+    /**
+     * Test to assert the Addition, removal and
+     * modification in the values all at the same time.
+     *
+     * @return merged array.
+     */
+    public function testMultilineAdditionRemovalModification3()
     {
         $original = [
                 'keyA' => ['This is not fun'],
-            ];
+        ];
 
         $local = [
             'keyA' => ['This is fun
@@ -369,7 +400,13 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $result);
     }
 
-    public function testMultilineAdditionRemovalModificationTest4()
+    /**
+     * Test to assert the Addition, removal and
+     * modification in the values all at the same time.
+     *
+     * @return merged array.
+     */
+    public function testMultilineAdditionRemovalModification4()
     {
         $original = [
             'keyA' => ['This is not fun'],
@@ -395,7 +432,13 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $result);
     }
 
-    public function testMultilineAdditionRemovalModificationTest5()
+    /**
+     * Test to assert the Addition, removal and
+     * modification in the values all at the same time.
+     *
+     * @return merged array.
+     */
+    public function testMultilineAdditionRemovalModification5()
     {
         $original = [
             'keyA' => ['This is not fun
@@ -420,7 +463,13 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $result);
     }
 
-    public function testMultilineAdditionRemovalModificationTest6()
+    /**
+     * Test to assert the Addition, removal and
+     * modification in the values all at the same time.
+     *
+     * @return merged array.
+     */
+    public function testMultilineAdditionRemovalModification6()
     {
         $original = [
             'keyA' => ['This is not fun
@@ -445,7 +494,14 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
         $result = $merge->performMerge($original, $local, $remote);
         $this->assertEquals($expected, $result);
     }
-    public function testMultilineRecursiveAdditionRemovalModification()
+
+    /**
+     * Test to assert the Addition, removal and
+     * modification in the values all at the same time.
+     *
+     * @return merged array.
+     */
+    public function testMultilineRecursiveAdditionRemovalModification7()
     {
         $original = [
             'keyA' => [
@@ -505,6 +561,417 @@ class ThreeWayMergeTest extends \PHPUnit_Framework_TestCase
                     'keyC' => 'This is changed because of remote',
                 ],
                 2 => 'a little new something',
+            ]
+        ];
+        $merge = new ThreeWayMerge();
+        $result = $merge->performMerge($original, $local, $remote);
+        $this->assertEquals($expected, $result);
+    }
+
+    /**
+     * Test that assert conflicts when a key are modified in both versions.
+     *
+     * @throws ConflictException
+     */
+    public function testMultilineConflict1()
+    {
+        $original = [
+            'keyA' => [
+                0 => [
+                    'keyB' => 'This is honey
+                    and who cares',
+                    'keyC' => 'This is however, not apple',
+                ],
+                1 => [
+                    'keyB' => 'This is milk',
+                    'keyC' => 'This is mango',
+                ],
+                2 => 'a little sugar
+                this line will be removed and you wont see it',
+            ]
+        ];
+        $local = [
+            'keyA' => [
+                0 => [
+                    'keyB' => 'This is honeypie',
+                    'keyC' => 'This is however, not apple',
+                ],
+                2 => 'a little sugar',
+                1 => [
+                    'keyB' => 'This is milky milky',
+                    'keyC' => 'This is mango',
+                ],
+            ]
+        ];
+        $remote = [
+            'keyA' => [
+                0 => [
+                    'keyB' => 'This is updated and purified honey
+                    and who cares
+                    i dont',
+                    'keyC' => 'This is apple',
+                ],
+                1 => [
+                    'keyB' => 'This is milk
+                    and I like milk',
+                    'keyC' => 'This is changed because of remote',
+                ],
+                2 => 'a little new something',
+            ]
+        ];
+        $merge = new ThreeWayMerge();
+        try {
+            $merge->performMerge($original, $local, $remote);
+            $this->fail('Exception was not thrown.');
+        } catch (ConflictException $e) {
+            $this->assertTrue(true);
+        }
+    }
+
+    /**
+    * Test that assert conflicts when a key are modified in both versions.
+    *
+    * @throws ConflictException
+    */
+    public function testMultilineConflict2()
+    {
+        $original = [
+            'keyA' => [
+                0 => [
+                    'keyB' => 'This is honey
+                    and who cares',
+                    'keyC' => 'This is not apple',
+                ],
+                1 => [
+                    'keyB' => 'This is milk',
+                    'keyC' => 'This is mango',
+                ],
+                2 => 'a little sugar
+                this line will be removed and you wont see it',
+            ]
+        ];
+        $local = [
+            'keyA' => [
+                0 => [
+                    'keyB' => 'This is honey',
+                    'keyC' => 'This is however, not apple',
+                ],
+                2 => 'a little sugar',
+                1 => [
+                    'keyB' => 'This is milky milky',
+                    'keyC' => 'This is mango',
+                ],
+            ]
+        ];
+        $remote = [
+            'keyA' => [
+                0 => [
+                    'keyB' => 'This is updated and purified honey
+                    and who cares
+                    i dont',
+                    'keyC' => 'This is apple',
+                ],
+                1 => [
+                    'keyB' => 'This is milk
+                    and I like milk',
+                    'keyC' => 'This is changed because of remote',
+                ],
+                2 => 'a little new something',
+            ]
+        ];
+        $merge = new ThreeWayMerge();
+        try {
+            $merge->performMerge($original, $local, $remote);
+            $this->fail('Exception was not thrown.');
+        } catch (ConflictException $e) {
+            $this->assertTrue(true);
+        }
+    }
+
+    /**
+     * Test that assert conflicts when a key are modified in both versions.
+     *
+     * @throws ConflictException
+     */
+    public function testMultilineConflict3()
+    {
+        $original = [
+            'keyA' => [
+                0 => [
+                    'keyB' => 'This is honey
+                    and who cares',
+                    'keyC' => 'This is however, not apple',
+                ],
+                1 => [
+                    'keyB' => 'This is milk',
+                    'keyC' => 'This is mango
+                    mango is sweet',
+                ],
+                2 => 'a little sugar
+                this line will be removed and you wont see it',
+            ]
+        ];
+        $local = [
+            'keyA' => [
+                0 => [
+                    'keyB' => 'This is honey',
+                    'keyC' => 'This is however, not apple',
+                ],
+                2 => 'a little sugar',
+                1 => [
+                    'keyB' => 'This is milky milky',
+                    'keyC' => 'This is mango
+                    my mango is not sweet',
+                ],
+            ]
+        ];
+        $remote = [
+            'keyA' => [
+                0 => [
+                    'keyB' => 'This is updated and purified honey
+                    and who cares
+                    i dont',
+                    'keyC' => 'This is apple',
+                ],
+                1 => [
+                    'keyB' => 'This is milk
+                    and I like milk',
+                    'keyC' => 'This is changed because of remote',
+                ],
+                2 => 'a little new something',
+            ]
+        ];
+        $merge = new ThreeWayMerge();
+        try {
+            $merge->performMerge($original, $local, $remote);
+            $this->fail('Exception was not thrown.');
+        } catch (ConflictException $e) {
+            $this->assertTrue(true);
+        }
+    }
+
+    /**
+     * Test that assert conflicts when a key are modified in both versions.
+     *
+     * @throws ConflictException
+     */
+    public function testMultilineConflict4()
+    {
+        $original = [
+            'keyA' => [
+                0 => [
+                    'keyB' => 'This is honey
+                    and who cares',
+                    'keyC' => 'This is however, not apple',
+                ],
+                1 => [
+                    'keyB' => 'This is milk',
+                    'keyC' => 'This is mango',
+                ],
+                2 => 'a little sugar',
+            ]
+        ];
+        $local = [
+            'keyA' => [
+                0 => [
+                    'keyB' => 'This is honey',
+                    'keyC' => 'This is however, not apple',
+                ],
+                2 => 'a little more sugar to add conflict',
+                1 => [
+                    'keyB' => 'This is milky milky',
+                    'keyC' => 'This is mango',
+                ],
+            ]
+        ];
+        $remote = [
+            'keyA' => [
+                0 => [
+                    'keyB' => 'This is updated and purified honey
+                    and who cares
+                    i dont',
+                    'keyC' => 'This is apple',
+                ],
+                1 => [
+                    'keyB' => 'This is milk
+                    and I like milk',
+                    'keyC' => 'This is changed because of remote',
+                ],
+                2 => 'even some more',
+            ]
+        ];
+        $merge = new ThreeWayMerge();
+        try {
+            $merge->performMerge($original, $local, $remote);
+            $this->fail('Exception was not thrown.');
+        } catch (ConflictException $e) {
+            $this->assertTrue(true);
+        }
+    }
+
+    /**
+     * Test for the case when a key is removed in
+     * either local or remote or both.
+     *
+     * @return merged array.
+     */
+    public function testKeyRemoval()
+    {
+        $original = [
+            'keyA' => [
+                0 => [
+                    'keyB' => 'This is honey',
+                    'keyC' => 'This is however, not apple',
+                ],
+                1 => [
+                    'keyB' => 'This is milk',
+                    'keyC' => 'This is mango',
+                ],
+                2 => 'a little sugar',
+            ]
+        ];
+        $local = [
+            'keyA' => [
+                0 => [
+                    'keyB' => 'This is honey',
+                    'keyC' => 'This is however, not apple',
+                ],
+                2 => 'a little coffee',
+                1 => [
+                    'keyB' => 'This is milky milky',
+                    'keyC' => 'This is mango',
+                ],
+            ]
+        ];
+        $remote = [
+            'keyA' => [
+                1 => [
+                    'keyB' => 'This is milk',
+                    'keyC' => 'This is changed because of remote',
+                ],
+                2 => 'a little sugar',
+            ]
+        ];
+        $expected = [
+            'keyA' => [
+                1 => [
+                    'keyB' => 'This is milky milky',
+                    'keyC' => 'This is changed because of remote',
+                ],
+                2 => 'a little coffee',
+            ]
+        ];
+        $merge = new ThreeWayMerge();
+        $result = $merge->performMerge($original, $local, $remote);
+        $this->assertEquals($expected, $result);
+    }
+
+    /**
+     * Test for the case when a key is removed in
+     * either local or remote or both.
+     *
+     * @return merged array.
+     */
+    public function testKeyRemoval2()
+    {
+        $original = [
+            'keyA' => [
+                0 => [
+                    'keyB' => 'This is honey',
+                    'keyC' => 'This is however, not apple',
+                ],
+                1 => [
+                    'keyB' => 'This is milk',
+                    'keyC' => 'This is mango',
+                ],
+                2 => 'a little sugar',
+            ]
+        ];
+        $local = [
+            'keyA' => [
+                0 => [
+                    'keyB' => 'This is honey',
+                    'keyC' => 'This is however, not apple',
+                ],
+                1 => [
+                    'keyB' => 'This is milky milky',
+                    'keyC' => 'This is mango',
+                ],
+            ]
+        ];
+        $remote = [
+            'keyA' => [
+                0 => [
+                    'keyB' => 'This is honey',
+                    'keyC' => 'This is however, not apple',
+                ],
+                1 => [
+                    'keyB' => 'This is milk',
+                    'keyC' => 'This is changed because of remote',
+                ],
+                2 => 'a little sugar',
+            ]
+        ];
+        $expected = [
+            'keyA' => [
+                0 => [
+                    'keyB' => 'This is honey',
+                    'keyC' => 'This is however, not apple',
+                ],
+                1 => [
+                    'keyB' => 'This is milky milky',
+                    'keyC' => 'This is changed because of remote',
+                ],
+            ]
+        ];
+        $merge = new ThreeWayMerge();
+        $result = $merge->performMerge($original, $local, $remote);
+        $this->assertEquals($expected, $result);
+    }
+
+    /**
+     * Test for the case when a key is removed in
+     * either local or remote or both.
+     *
+     * @return merged array.
+     */
+    public function testKeyRemoval3()
+    {
+        $original = [
+            'keyA' => [
+                0 => [
+                    'keyB' => 'This is honey',
+                    'keyC' => 'This is apple',
+                ],
+                1 => [
+                    'keyB' => 'This is milk',
+                    'keyC' => 'This is mango',
+                ],
+                2 => 'a little sugar',
+            ]
+        ];
+        $local = [
+            'keyA' => [
+                0 => [
+                    'keyB' => 'This is honeypie',
+                    'keyC' => 'This is apple',
+                ],
+            ]
+        ];
+        $remote = [
+            'keyA' => [
+                0 => [
+                    'keyB' => 'This is honey',
+                    'keyC' => 'This is however, not apple',
+                ],
+            ]
+        ];
+        $expected = [
+            'keyA' => [
+                0 => [
+                    'keyB' => 'This is honeypie',
+                    'keyC' => 'This is however, not apple',
+                ],
             ]
         ];
         $merge = new ThreeWayMerge();
