@@ -44,7 +44,8 @@ class ThreeWayMerge
                     }
                 } elseif (array_key_exists($key, $remote)) {
                     if ($ancestor[$key] != $remote[$key]) {
-                        throw new ConflictException("$key not same in Ancestor and Remote");                    }
+                        throw new ConflictException("$key not same in Ancestor and Remote");
+                    }
                 } else {
                     unset($merged[$key]);
                 }
