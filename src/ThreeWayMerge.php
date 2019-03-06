@@ -173,7 +173,7 @@ class ThreeWayMerge
         // We will make sure they are same or throw exception.
         for ($i = $count_ancestor; $i < $count; $i++) {
             if ($count_ancestor == $count_remote) {
-                $merged[$i] == $local[$i];
+                $merged[$i] = $local[$i];
             } elseif ($count_ancestor == $count_local) {
                 $merged[$i] = $remote[$i];
             } elseif ($count_local == $count_remote) {
